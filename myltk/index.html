@@ -2,17 +2,49 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <title>Opening MyLTK…</title>
+    <title>Open MyLTK</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <script>
-        window.onload = function () {
-          // tentative App Link
-          window.location.href = "https://alexandre-saddour.github.io/myltk";
-        };
-    </script>
+    <style>
+        body { font-family: system-ui, -apple-system, sans-serif; padding: 24px; }
+        button { width: 100%; padding: 16px; font-size: 16px; border-radius: 12px; border: 0; }
+        .primary { background: #111; color: #fff; }
+        .muted { color: #666; margin-top: 12px; font-size: 14px; }
+    </style>
 </head>
+
 <body>
-<p>Opening the app…</p>
-<p>If nothing happens, <a href="https://play.google.com/store/apps/details?id=com.example.myltk">open in Play Store</a></p>
+<h2>It’s better in the app</h2>
+<p class="muted">Open MyLTK to continue.</p>
+
+<button class="primary" id="openBtn">OPEN THE APP</button>
+
+<p class="muted" id="fallback" style="display:none;">
+    App not installed? <a id="storeLink" href="#">Install it</a>
+</p>
+
+<script>
+    const ANDROID_STORE = "https://play.google.com/store/apps/details?id=com.example.myltk";
+    const IOS_STORE = "https://apps.apple.com/app/idXXXXXXXXXX"; // mets ton id plus tard
+
+    function isIOS() {
+      return /iPad|iPhone|iPod/.test(navigator.userAgent);
+    }
+
+    document.getElementById("storeLink").href = isIOS() ? IOS_STORE : ANDROID_STORE;
+
+    document.getElementById("openBtn").addEventListener("click", () => {
+      // 1) tente d’ouvrir l’app -> déclenche le popup Instagram “external app”
+      window.location.href = "myltk://open";
+
+      // 2) fallback si rien ne se passe (app non installée)
+      const t = Date.now();
+      setTimeout(() => {
+        // si on est encore là après ~1.2s, on propose store
+        if (Date.now() - t > 1100) {
+          document.getElementById("fallback").style.display = "block";
+        }
+      }, 1200);
+    });
+</script>
 </body>
 </html>
