@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.example.myltk",
+      "sha256_cert_fingerprints": [
+        "CA:FE:1D:E0:7A:15:09:E2:09:47:AB:B5:20:02:CA:60:E6:1B:2D:B8:32:51:CF:7C:34:C5:D6:44:20:C7:3B:79"
+      ]
+    }
+  }
+]
